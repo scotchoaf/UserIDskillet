@@ -1,0 +1,34 @@
+# basic_dhcp_userid_v81 sends dhcp logs to the fw mgmt interface
+# logs are parsed and used to create userid entries based on dhcp hostname
+# created by James Holland based on the Nimesh xml snipets
+
+# snippet name
+name: dhcp_userid_panos_set
+# label used for menu selection
+label: NGFW DHCP Log Parsing to create userID entries (set)
+description: Use firewall dhcp logs to create dhcp userID entries (set commands)
+# type of device configuration
+type: template
+extends:
+
+# grouping of like snippets for dynamic menu creation in pan-cnc
+labels:
+  collection:
+    - Userid
+    - Configure
+
+# variables used in the configuration templates
+# type_hint defines the form field type in pan-cnc
+variables:
+  - name: MGMT_IP
+    description: NGFW management IP address
+    default: 192.168.0.1
+    type_hint: ip_address
+  - name: ZONE_TRUST
+    description: name of untrust zone to enable userid
+    default: trust
+    type_hint: text
+
+snippets:
+  - name: dhcp_userid.conf
+    file: dhcp_userid.conf
